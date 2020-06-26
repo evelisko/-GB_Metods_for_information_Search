@@ -1,0 +1,35 @@
+// Информация о пользователе
+// https://api.vk.com/method/users.get?user_id=210700286&fields=bdate&access_token=aaaaaaaaaaaaaaaaaaaaaa&v=5.110
+
+{
+	"response": [
+		{
+			"id": 210700286,
+			"first_name": "Lindsey",
+			"last_name": "Stirling",
+			"is_closed": false,
+			"can_access_closed": true,
+			"bdate": "21.9.1986"
+		}
+	]
+}
+
+// Список друзей пользователя. 
+// https://api.vk.com/method/users.get?user_id=210700286&fields=bdate&access_token=aaaaaaaaaaaaaaaaaaaaaa&v=5.110
+
+{
+	"response": {
+		"count": 1,
+		"items": [
+			{
+				"id": 26047,
+				"first_name": "Александр",
+				"last_name": "Степанов",
+				"is_closed": true,
+				"can_access_closed": false,
+				"online": 0,
+				"track_code": "a9952b03eQWvqCRi01gbeAHzsCIac7vZbW3o7T6KrrELvrfR6oEUbqWdQGTdDkstB3gCwq8U278f"
+			}
+		]
+	}
+}
