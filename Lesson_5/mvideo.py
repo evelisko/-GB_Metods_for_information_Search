@@ -11,7 +11,6 @@ import pandas as pd
 from lxml import html
 from pymongo import MongoClient
 
-letters_list = []
 chrome_options = Options()
 chrome_options.add_argument('start-maximized')  # --headless
 driver = webdriver.Chrome('./chromedriver.exe', options=chrome_options)
@@ -29,10 +28,12 @@ for goods_category in goods_categories:
     print(f'Категория тофаров : {category_name}' )
     # Динамически заполняем все товары на полке.
     # нажимаем на кнопку до тех пор пока она не исчезнет.
+    actions = ActionChains(driver)
+    actions.move_to_element(goods_category)
+    actions.perform()
 
     next_btn = goods_category.find_element_by_css_selector("a.next-btn.sel-hits-button-next")
     # выделяем наш элемент. чтобы он стал доступным для загрузки.
-    actions = ActionChains(driver)
     actions.move_to_element(next_btn).click()
     actions.perform()
     # #
