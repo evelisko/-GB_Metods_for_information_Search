@@ -3,3 +3,4 @@ Thumbs.db
 #Ignore PyCharm IDE files
 .idea/
 .ipynb_checkpoints
+*.exe
