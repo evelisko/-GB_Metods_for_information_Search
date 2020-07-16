@@ -4,3 +4,5 @@ Thumbs.db
 .idea/
 .ipynb_checkpoints
 *.exe
+*.jpg
+venv/
