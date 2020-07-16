@@ -8,7 +8,6 @@
 import scrapy
 # from scrapy.loader.processors import MapCompose, TakeFirst
 
-
 class GoodsParserItem(scrapy.Item):
     _id = scrapy.Field()
     name = scrapy.Field()
@@ -17,6 +16,7 @@ class GoodsParserItem(scrapy.Item):
     price = scrapy.Field()
     characteristics = scrapy.Field()
     url = scrapy.Field()
-
+    raiting = scrapy.Field()
+    reviewCount = scrapy.Field()
 
 

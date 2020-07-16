@@ -13,6 +13,7 @@ class LeroyMerlinSpider(scrapy.Spider):
     def __init__(self, search):
         self.start_urls = [f'https://leroymerlin.ru/search/?q={search}']
 
+
     def parse(self, response: HtmlResponse):
         # Ссылка на следующую страницу.
         next_page = response.xpath("//div[@class='next-paginator-button-wrapper']/a/@href").extract_first()
@@ -28,16 +29,21 @@ class LeroyMerlinSpider(scrapy.Spider):
         goods_data = {}
         price = []
         goods_data['name'] = response.xpath("//h1[@class='header-2']/text()").extract_first()
-        goods_data['picture'] = response.xpath("//picture[@slot='pictures']/source[2]/@srcset").extract_first()  # - путь к картинкам.
+        goods_data['picture'] = response.xpath("//picture[@slot='pictures']/source[2]/@srcset").extract()  # - путь к картинкам.
         # goods_data['parameters'] = response.xpath("//uc-variants//span[@slot='axis']").extract()  # -- параметры выбора.[словарь].
-        price.append(response.xpath("//uc-pdp-price-view[@class='primary-price']/span[@slot='price']/text()").extract())
-        price.append(response.xpath("//uc-pdp-price-view[@class='primary-price']/span[@slot='currency']/text()").extract())
-        price.append(response.xpath("//uc-pdp-price-view[@class='primary-price']/span[@slot='unit']/text()").extract())
+        price.append(response.xpath("//uc-pdp-price-view[@class='primary-price']/span[@slot='price']/text()").extract_first())
+        price.append(response.xpath("//uc-pdp-price-view[@class='primary-price']/span[@slot='currency']/text()").extract_first())
+        price.append(response.xpath("//uc-pdp-price-view[@class='primary-price']/span[@slot='unit']/text()").extract_first())
+        goods_data['raiting'] = response.xpath("//div[@class='sp-summary-rating-value']/span[@itemprop='ratingValue']/text()").extract_first()
+        goods_data['reviewCount'] = response.xpath(
+            "//div[@class='sp-summary-rating-description']/span[@itemprop='reviewCount']/text()").extract_first()
         goods_data['price'] = price
-        goods_data['characteristics'] = response.xpath("//section[@id='nav-characteristics']//uc-pdp-section-layout//dl/div").extract()
+        goods_data['characteristics'] = response.xpath("//section[@id='nav-characteristics']//uc-pdp-section-layout//dl/div")
+
+
         goods_data['url'] = response.url
         yield GoodsParserItem(goods_data)
-        GoodsParserItem
+        # GoodsParserItem
 
     # def goods_parse(self, response: HtmlResponse):  # Парсинг конкретно вакансии
     #     vacancy_data = {}
